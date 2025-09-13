@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - IWA™</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="login-container">
+        <div class="login-box">
+            <h1 class="title">IWA™</h1>
+            <p class="subtitle">Intelligent Work Assistant</p>
+            <input type="email" id="email" placeholder="email" class="input-field" />
+            <input type="password" id="password" placeholder="password" class="input-field" />
+            <div class="button-group">
+                <button id="signInBtn" class="btn btn-primary">Sign In</button>
+                <button id="signUpBtn" class="btn btn-secondary">Sign Up</button>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

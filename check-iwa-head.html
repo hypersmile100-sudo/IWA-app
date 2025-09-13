@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find an IWA Professional - IWA™</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-view">
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="gov-logo"><img src="emblem_of_india.png" alt="Emblem of India"></div>
+            <div class="header-title"><h1>Intelligent Workflow Architect | Official Portal</h1><p>Find a Verified IWA Professional</p></div>
+        </header>
+        <div class="container">
+            <main class="search-page-layout">
+                <div class="search-form-container">
+                    <h2>Search by Location</h2>
+                    <div class="form-group"><label>State</label><select id="state-select" class="input-field"><option value="" disabled selected>-- Select --</option><option>Maharashtra</option></select></div>
+                    <div class="form-group"><label>District</label><select id="district-select" class="input-field"><option value="" disabled selected>-- Select --</option><option>Amravati</option></select></div>
+                    <div class="form-group"><label>City/Town</label><select id="city-select" class="input-field"><option value="" disabled selected>-- Select --</option><option>Dharni</option></select></div>
+                    <button id="search-btn" class="btn btn-primary">Search</button>
+                </div>
+                <div id="featured-officer-container" class="search-results"></div>
+                <div id="search-results-container" class="search-results" style="display: none;"></div>
+            </main>
+        </div>
+    </div>
+    <footer class="footer"><p>&copy; 2024 IWA™ Official Portal | All Rights Reserved</p></footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const officers = [{ name: 'Abdul Haseeb Abdul Ajeem', post: 'Head IWA', state: 'Maharashtra', district: 'Amravati', city: 'Dharni', imageUrl: 'profile_photo.png', portfolioUrl: 'iwa-portfolio-abdul-haseeb.html' }];
+            const searchBtn = document.getElementById('search-btn'); const featuredContainer = document.getElementById('featured-officer-container'); const resultsContainer = document.getElementById('search-results-container'); const stateSelect = document.getElementById('state-select'); const districtSelect = document.getElementById('district-select'); const citySelect = document.getElementById('city-select');
+            function createOfficerCardHTML(officer) { return `<div class="iwa-officer-card"><img src="${officer.imageUrl}" alt="Profile Picture"><div class="officer-info"><h3>${officer.name}</h3><p><strong>Post:</strong> ${officer.post}</p><p><strong>Location:</strong> ${officer.city}, ${officer.district}</p></div><a href="${officer.portfolioUrl}" class="btn btn-primary btn-view">View</a></div>`; }
+            function showFeaturedOfficer() { const featuredOfficer = officers[0]; if (featuredOfficer) { featuredContainer.innerHTML = '<h2>Featured Professional</h2>' + createOfficerCardHTML(featuredOfficer); } }
+            searchBtn.addEventListener('click', () => {
+                const selectedState = stateSelect.value; const selectedDistrict = districtSelect.value; const selectedCity = citySelect.value;
+                if (!selectedState || !selectedDistrict || !selectedCity) { alert("Please select a State, District, and City."); return; }
+                const searchResults = officers.filter(o => o.state === selectedState && o.district === selectedDistrict && o.city === selectedCity);
+                featuredContainer.style.display = 'none'; resultsContainer.style.display = 'block';
+                if (searchResults.length > 0) { resultsContainer.innerHTML = '<h2>Search Results</h2>' + searchResults.map(createOfficerCardHTML).join(''); } else { resultsContainer.innerHTML = '<h2>Search Results</h2><p>No IWA professionals found for the selected location.</p>'; }
+            });
+            showFeaturedOfficer();
+        });
+    </script>
+</body>
+</html>

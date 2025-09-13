@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IWA™ - Your Intelligent Work Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="notification-toast"></div>
+    <header class="header">
+        <div class="gov-logo"><img src="emblem_of_india.png" alt="Emblem of India"></div>
+        <div class="header-title"><h1>Intelligent Workflow Architect | Official Portal</h1><p>Your Personal Work Order System</p></div>
+    </header>
+    <main class="app-layout">
+        <div class="panel left-panel">
+            <h2 class="panel-title">Your Work Orders</h2>
+            <div id="project-list" class="project-list"><p class="placeholder-text">Loading projects...</p></div>
+            <div class="user-info"><p>Logged in as:</p><p id="user-email" class="user-email-text">loading...</p><button id="logout-btn" class="btn btn-secondary">Logout</button></div>
+        </div>
+        <div class="panel center-panel">
+            <div id="new-order-view">
+                <h2 class="panel-title">Submit a New Work Order</h2>
+                <form id="submission-form" class="submission-form">
+                    <div class="form-group"><label>What is the work?</label><div class="custom-editor-container"><div class="custom-editor-toolbar"><button type="button" data-command="bold"><b>B</b></button><button type="button" data-command="italic"><i>I</i></button><button type="button" data-command="underline"><u>U</u></button><button type="button" data-command="insertUnorderedList">●</button></div><div id="work-description" class="custom-editor-content" contenteditable="true"></div></div></div>
+                    <div class="form-group"><label for="work-details">Other important things to include:</label><textarea id="work-details" class="input-field" placeholder="e.g., Please use a formal tone..."></textarea></div>
+                    <div class="form-group"><label>Attachment Links</label><div id="link-inputs-container"><div class="link-input-group"><input type="text" class="link-name-input input-field" placeholder="Name of Link"><input type="url" class="link-url-input input-field" placeholder="https://..."></div></div><button type="button" id="add-link-btn" class="btn btn-secondary" style="margin-top: 0.5rem; max-width: 200px;">+ Add Link</button></div>
+                    <div class="form-group captcha-group"><label for="captcha-input" id="captcha-label">?</label><input type="number" id="captcha-input" class="input-field" style="width: 80px;" required></div>
+                    <button type="submit" id="submit-btn" class="btn btn-primary">Submit Work Order</button>
+                    <p id="form-message" class="message-text"></p>
+                </form>
+            </div>
+        </div>
+        <div class="panel right-panel">
+            <a href="dashboard.html" class="tool-icon" title="IWA Head Dashboard"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="18" x2="9" y2="15"></line><line x1="15" y1="18" x2="15" y2="9"></line></svg></a>
+            <a href="check-iwa-head.html" class="tool-icon" title="Find IWA Professional"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></a>
+            <a href="leaderboard.html" target="_blank" class="tool-icon" title="Leaderboard"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 15h1.5a2.5 2.5 0 0 1 0 5H4"></path><path d="M18 15h1.5a2.5 2.5 0 0 0 0 5H18"></path><line x1="12" y1="12" x2="12" y2="22"></line><polyline points="8 12 12 8 16 12"></polyline></svg></a>
+            <a href="#" id="bin-toggle-btn" class="tool-icon" title="View Bin"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+        </div>
+    </main>
+    <footer class="footer"><p>&copy; 2024 IWA™ Official Portal | All Rights Reserved</p></footer>
+    <div id="view-details-modal" class="modal-overlay" style="display: none;"><div class="modal-content"><button class="modal-close-btn" data-modal-id="view-details-modal">&times;</button><div id="view-details-content"></div></div></div>
+    <div id="edit-project-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-modal-id="edit-project-modal">&times;</button>
+            <h2 id="edit-modal-title">Editing Work Order</h2>
+            <form id="edit-form">
+                <div class="form-group">
+                    <label>What is the work?</label>
+                    <!-- THIS IS THE CORRECTED EDITOR STRUCTURE -->
+                    <div class="custom-editor-container">
+                        <div class="custom-editor-toolbar">
+                            <button type="button" data-command="bold"><b>B</b></button>
+                            <button type="button" data-command="italic"><i>I</i></button>
+                            <button type="button" data-command="underline"><u>U</u></button>
+                            <button type="button" data-command="insertUnorderedList">●</button>
+                        </div>
+                        <div id="edit-work-description" class="custom-editor-content" contenteditable="true"></div>
+                    </div>
+                </div>
+                <div class="form-group"><label>Other things to include:</label><textarea id="edit-work-details" class="input-field"></textarea></div>
+                <div class="form-group"><label>Attachment Links</label><div id="edit-link-inputs-container"></div><button type="button" id="edit-add-link-btn" class="btn btn-secondary">+ Add Another Link</button></div>
+                <button type="submit" id="update-btn" class="btn btn-primary">Update Work Order</button>
+                <p id="edit-form-message" class="message-text"></p>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

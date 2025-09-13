@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - IWA™</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-view">
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="gov-logo"><img src="emblem_of_india.png" alt="Emblem of India"></div>
+            <div class="header-title"><h1>Intelligent Workflow Architect | Official Portal</h1><p>Top Rated Professionals</p></div>
+        </header>
+        <div class="container">
+            <main class="leaderboard-layout">
+                <div class="leaderboard-header">
+                    <h2>IWA™ Professionals Leaderboard</h2>
+                    <a href="index.html" class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;">&larr; Back to App</a>
+                </div>
+                <div class="leaderboard-table-container">
+                    <table class="leaderboard-table">
+                        <thead><tr><th>Rank</th><th>Professional</th><th>Location</th><th>Projects Completed</th><th>Average Rating</th><th>Portfolio</th></tr></thead>
+                        <tbody id="leaderboard-body"><tr><td colspan="6">Loading Leaderboard...</td></tr></tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+    <footer class="footer"><p>&copy; 2024 IWA™ Official Portal | All Rights Reserved</p></footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/leaderboard.js"></script>
+</body>
+</html>

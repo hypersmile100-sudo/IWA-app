@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IWA™ Workstation</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body class="page-view">
+    <div id="pin-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Enter Workstation PIN</h2>
+            <input type="password" id="pin-input" class="input-field" maxlength="6" autocomplete="off">
+            <button id="pin-submit" class="btn btn-primary">Enter</button>
+            <p id="pin-error" class="error-text"></p>
+        </div>
+    </div>
+
+    <div id="workstation-content" class="full-page-wrapper" style="display: none;">
+        <header class="header">
+            <div class="gov-logo"><img src="emblem_of_india.png" alt="Emblem of India"></div>
+            <div class="header-title">
+                <h1>Intelligent Workflow Architect | Official Portal</h1>
+                <p>IWA Head Officer Workstation</p>
+            </div>
+        </header>
+
+        <main class="app-layout">
+            <div class="panel left-panel">
+                <h2 class="panel-title">Incoming Orders</h2>
+                <div class="workstation-controls">
+                    <select id="filter-status">
+                        <option value="ALL">Filter by Status (All)</option>
+                        <option value="SUBMITTED">Submitted</option>
+                        <option value="IN PROGRESS">In Progress</option>
+                        <option value="REJECTED">Rejected</option>
+                        <option value="DELIVERED">Delivered</option>
+                    </select>
+                </div>
+                <div id="project-list-container" class="project-list"></div>
+            </div>
+
+            <div id="center-panel-content" class="panel center-panel">
+                <div class="placeholder-text-center"><p>Please select a project from the left panel.</p></div>
+            </div>
+
+            <div class="panel right-panel">
+                <a href="dashboard.html" class="tool-icon" title="Back to Dashboard"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></a>
+                <a href="#" id="bin-toggle-btn-ws" class="tool-icon" title="View Bin"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2024 IWA™ Official Portal | All Rights Reserved</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/workstation.js"></script>
+</body>
+</html>
