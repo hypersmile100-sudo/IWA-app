@@ -1,9 +1,9 @@
-// js/auth.js - ROBUST AND CORRECTED VERSION
+// js/auth.js - DEFINITIVE FINAL VERSION (With IWA Head Check)
 
 document.addEventListener('DOMContentLoaded', () => {
     // This script should only run on the login page.
     if (!document.getElementById('signInBtn')) {
-        return; // If there's no Sign In button, stop.
+        return; // If there's no Sign In button, stop immediately.
     }
 
     const emailInput = document.getElementById('email');
@@ -13,34 +13,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- MAIN LOGIC ---
 
-    // Function to handle signing in a user.
     async function handleSignIn() {
         const email = emailInput.value;
         const password = passwordInput.value;
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
+        }
 
-        const { error } = await supabaseClient.auth.signInWithPassword({
+        // Sign in the user
+        const { data: { user }, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password,
         });
 
         if (error) {
             alert('Error signing in: ' + error.message);
-        } else {
-            // On success, redirect to the main application page.
-            window.location.href = 'index.html';
+        } else if (user) {
+            // After a successful login, check the user's ID
+            
+            // =======================================================================
+            // CRITICAL: Replace this placeholder with your REAL IWA Head User ID
+            // You can find this in your Supabase project under Authentication > Users
+            // =======================================================================
+            const IWA_HEAD_USER_ID = '9ec202e3-0748-44e8-9945-2298d6f01af5'; 
+            
+            if (user.id === IWA_HEAD_USER_ID) {
+                // If the user is the IWA Head, send them to the dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                // Otherwise, send them to the normal user panel
+                window.location.href = 'index.html';
+            }
         }
     }
 
-    // Function to handle signing up a new user.
     async function handleSignUp() {
         const email = emailInput.value;
         const password = passwordInput.value;
-
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
+        }
         const { error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
         });
-
         if (error) {
             alert('Error signing up: ' + error.message);
         } else {
@@ -51,30 +69,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EVENT LISTENERS ---
     signInBtn.addEventListener('click', handleSignIn);
     signUpBtn.addEventListener('click', handleSignUp);
-    
-    // Add event listener for Enter key on password field for quick login
     passwordInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             handleSignIn();
         }
     });
 
-
     // --- INITIALIZATION ---
-    // This is the most important part for fixing the "stuck" bug.
-    // It checks if the user is ALREADY logged in when they visit the login page.
-    async function checkSession() {
+    // This function is for redirecting users who are already logged in
+    async function checkSessionAndRedirect() {
         const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) {
-            // If they are already logged in, don't wait, just send them to the app.
-            console.log('User already logged in. Redirecting...');
-            window.location.href = 'index.html';
-        } else {
-            // If not logged in, show the page.
-            console.log('No active session. Showing login page.');
+            // User is already logged in, so they should not be on the login page.
+            
+            // =======================================================================
+            // CRITICAL: Replace this placeholder with your REAL IWA Head User ID
+            // =======================================================================
+            const IWA_HEAD_USER_ID = 'YOUR_IWA_HEAD_USER_ID';
+            
+            if (session.user.id === IWA_HEAD_USER_ID) {
+                // Redirect the IWA Head to their dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                // Redirect normal users to their panel
+                window.location.href = 'index.html';
+            }
         }
     }
 
     // Run the check as soon as the page loads.
-    checkSession();
+    checkSessionAndRedirect();
 });
